@@ -15,12 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        factory(User::class)->create([
-            'email'     => 'admin@handesk.com',
-            'password'  => bcrypt('admin'),
-            'admin'     => true,
-        ]);
+        $this->command->info('Running DatabaseSeeder');
+
+        $this->call('UserTableSeeder');
 
         Settings::create();
 

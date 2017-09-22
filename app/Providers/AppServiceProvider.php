@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Services\IssueCreator;
-use Illuminate\Support\Facades\Hash;
 use App\Services\Bitbucket\Bitbucket;
+use App\Services\IssueCreator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
+
         app()->bind(IssueCreator::class, Bitbucket::class);
 
         Blade::directive('icon', function ($icon) {
@@ -40,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::directive('busy', function () {
-            return  "<span class='busy'>".\FA::spin('circle-o-notch').'</span>';
+            return "<span class='busy'>".\FA::spin('circle-o-notch').'</span>';
         });
 
         Blade::directive('gravatar', function ($email) {

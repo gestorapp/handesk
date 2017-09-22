@@ -13,6 +13,9 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/update', 'HomeController@update');
+Route::get('/install', 'HomeController@showSystemSettings');
+
 Auth::routes();
 
 Route::group(['prefix' => 'requester'], function () {
