@@ -2,11 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Artisan;
 use Closure;
 use DB;
-use Cache;
-use Artisan;
-use Session;
 
 class StartupCheck
 {
@@ -19,14 +17,14 @@ class StartupCheck
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->is('setup') && ! $request->is('update*') ){
+        if (!$request->is('setup') && !$request->is('update*')) {
 
-            if (! $this->envExists() || $this->needsDbSetup()){
+            if (!$this->envExists() || $this->needsDbSetup()) {
 
                 return redirect('/setup');
             }
 
-            if ($this->checkNeedsUpdate()){
+            if ($this->checkNeedsUpdate()) {
 
                 return redirect('/update');
             }
@@ -39,8 +37,8 @@ class StartupCheck
     {
         $envFile = base_path().'/.env';
         if (!file_exists($envFile)) {
-            if (! copy($envFile . '.example', $envFile)) {
-                dd( "Error trying to write $envFile..." );
+            if (!copy($envFile.'.example', $envFile)) {
+                dd("Error trying to write $envFile...");
             }
             Artisan::call('key:generate');
             return false;
@@ -54,26 +52,25 @@ class StartupCheck
         try {
             DB::connection()->getPdo();
         } catch (\Exception $e) {
-            return  true;
+            return true;
         }
         return false;
     }
 
     protected function checkNeedsUpdate()
     {
-        $file = storage_path() . '/version.txt';
+        $file = storage_path().'/version.txt';
         $version = @file_get_contents($file);
         if ($version != APP_VERSION) {
             if (version_compare(phpversion(), '7.0.0', '<')) {
                 dd('Please update PHP to >= 7.0.0');
             }
-            $handle = fopen(storage_path() . '/version.txt', 'w');
+            $handle = fopen(storage_path().'/version.txt', 'w');
             fwrite($handle, APP_VERSION);
             fclose($handle);
 
             return true;
         }
     }
-
 
 }

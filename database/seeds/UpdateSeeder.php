@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Database\Seeder;
 
 class UpdateSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class UpdateSeeder extends Seeder
 
         $this->call('DateFormatsSeeder');
 
-        if (!$admin = User::where('admin',1)->first()) {
+        if (!$admin = User::where('admin', 1)->first()) {
             $this->call('UserTableSeeder');
         }
 

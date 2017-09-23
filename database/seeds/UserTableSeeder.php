@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
 {
@@ -13,9 +13,9 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         factory(User::class)->create([
-            'email'     => 'admin@handesk.com',
-            'password'  => bcrypt('admin'),
-            'admin'     => true,
+            'email'    => 'admin@handesk.com',
+            'password' => bcrypt('admin'),
+            'admin'    => true,
         ]);
     }
 }

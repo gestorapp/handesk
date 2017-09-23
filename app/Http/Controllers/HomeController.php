@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Artisan;
 use Auth;
 use Cache;
-use Exception;
-use Session;
-use DB;
 use Config;
+use DB;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Session;
 
 class HomeController extends Controller
 {
@@ -34,13 +34,11 @@ class HomeController extends Controller
         return view('settings.system_settings', $data);
     }
 
-    public function updateBack()
+    public function uninstall()
     {
-
         if (file_exists(storage_path().'/version.txt')) {
             unlink(storage_path().'/version.txt');
         }
-
         if (file_exists(base_path().'/.env')) {
             unlink(base_path().'/.env');
         }
@@ -88,10 +86,12 @@ class HomeController extends Controller
         return redirect('/login')->with($message);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function doSetup(Request $request)
     {
-
-
 
         $valid = false;
         $test = $request->get('test');
@@ -151,7 +151,6 @@ class HomeController extends Controller
         $_ENV['MAILGUN_DOMAIN'] = $mail['mailgun_domain'];
         $_ENV['MAILGUN_SECRET'] = $mail['mailgun_secret'];
 
-
         $_ENV['MAIL_FETCH_HOST'] = 'smtp.yourmail.com';
         $_ENV['MAIL_FETCH_PORT'] = '110';
         $_ENV['MAIL_FETCH_USERNAME'] = 'hello@handesk.com';
@@ -161,7 +160,6 @@ class HomeController extends Controller
         $_ENV['MAIL_SSLOPTIONS_ALLOW_SELF_SIGNED'] = 'false';
         $_ENV['MAIL_SSLOPTIONS_VERIFY_PEER'] = 'true';
         $_ENV['MAIL_SSLOPTIONS_VERIFY_PEER_NAME'] = 'true';
-
 
         $config = '';
         foreach ($_ENV as $key => $val) {
@@ -195,7 +193,9 @@ class HomeController extends Controller
         return redirect('/login');
     }
 
-
+    /**
+     * @param $database
+     */
     private function testDatabase($database)
     {
         $dbType = 'mysql'; // $database['default'];
@@ -213,6 +213,9 @@ class HomeController extends Controller
         return $valid;
     }
 
+    /**
+     * @param $mail
+     */
     private function testMail($mail)
     {
         $email = $mail['from']['address'];
@@ -226,13 +229,13 @@ class HomeController extends Controller
         Config::set('mail.from.name', $fromName);
 
         $data = [
-            'text' => 'Test email',
-            'fromEmail' =>  $email
+            'text'      => 'Test email',
+            'fromEmail' => $email,
         ];
 
         try {
 
-            $result = Mail::send('emails.blank', ['title' => 'Gratz!', 'body' => 'You configured successfully your mail settings'], function($message) use ($email) {
+            $result = Mail::send('emails.blank', ['title' => 'Gratz!', 'body' => 'You configured successfully your mail settings'], function ($message) use ($email) {
                 $message->to($email);
                 $message->subject('E-Mail configuration test');
             });
