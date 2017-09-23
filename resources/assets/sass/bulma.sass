@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,400italic,700,300|Open+Sans:400,400italic,700")
+@import url("https://fonts.googleapis.com/css?family=Indie+Flower")
+
+@import "node_modules/bulma/sass/utilities/initial-variables"
+@import "vars"
+@import "node_modules/bulma/bulma"
+
+.title_font
+  font-family: $family-heads
+.body_font
+  font-family: $family-serif
+
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.navbar-item,.navbar-link
+  @extend .title_font
+
+.cursive
+  font-family: 'Indie Flower', cursive
+
+.visuallyhidden
+  border: 0
+  clip: rect(0 0 0 0)
+  height: 1px
+  margin: -1px
+  overflow: hidden
+  padding: 0
+  position: absolute
+  width: 1px
+
+.hero.is-dark .box .title
+  text-transform: uppercase
+  color: inherit

@@ -22,3 +22,18 @@ mix.js([
         'resources/assets/css/libs/jquery.tagsinput.min.css',
         'resources/assets/css/style.css'
     ],'public/css/all.css');
+
+
+mix
+   .sass('resources/assets/sass/bulma.sass', 'public/css')
+   .js('resources/assets/js/webPacked.js', 'public/js/')
+   .webpackConfig({
+        resolve: {
+            modules: [
+                'node_modules'
+            ],
+            alias: {
+                'vue$': 'vue/dist/vue.js'
+            }
+        }
+   });
