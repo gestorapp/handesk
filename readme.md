@@ -1,4 +1,4 @@
-### Handesk
+# Handesk
 
 [![TravisCI](https://travis-ci.org/BadChoice/handesk.svg?branch=dev)](https://travis-ci.org/BadChoice/handesk.svg?branch=dev)
 
@@ -39,14 +39,14 @@ composer install
 php artisan serve
 ```
 
-Navigate to [http:\\localhost:8000](http:\\localhost:8000) to finalize the installation.
+Navigate to [http://localhost:8000](http://localhost:8000) to finalize the installation.
 
 The installer will setup `.env` for you and will let you setup database end email enviroment.
 
 Alternatively, you can use the following [docker setup](https://github.com/BadChoice/handesk/blob/dev/docker-installation.md)
 
 
-> The default admin user is admin@handesk.com / admin
+> The default admin user is ***admin@handesk.com*** / ***admin***
 > If you want email pulling, you need to enable the `imap` extension on php (note that on mac the php-cli runs very slow, you need to update your /etc/hosts file
 
 ```

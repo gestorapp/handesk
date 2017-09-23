@@ -12,10 +12,11 @@
  */
 
 Route::get('/', 'HomeController@index');
-
-Route::get('/update', 'HomeController@update');
-Route::get('/setup', 'HomeController@install');
-Route::post('/setup', 'HomeController@doSetup');
+// Installation and updates
+Route::get('/setup', 'AppController@install');
+Route::post('/setup', 'AppController@doSetup');
+Route::get('/uninstall', 'AppController@uninstall');
+Route::get('/update', 'AppController@update');
 
 Auth::routes();
 
