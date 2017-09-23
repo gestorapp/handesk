@@ -14,7 +14,9 @@
 Route::get('/', 'HomeController@index');
 
 Route::get('/update', 'HomeController@update');
-Route::get('/install', 'HomeController@showSystemSettings');
+Route::get('/updateBack', 'HomeController@updateBack');
+Route::get('/setup', 'HomeController@install');
+Route::post('/setup', 'HomeController@doSetup');
 
 Auth::routes();
 

@@ -30,7 +30,8 @@
             "App\\": "app/"
         },
         "files": [
-            "helpers/helpers.php"
+            "helpers/helpers.php",
+            "helpers/BulmaFramework.php"
         ]
     },
     "autoload-dev": {

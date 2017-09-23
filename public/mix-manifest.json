@@ -1,6 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/../resources/assets/css/style.css": "/../resources/assets/css/style.css",
+    "/css/bulma.css": "/css/bulma.css",
+    "/js/webPacked.js": "/js/webPacked.js",
     "/js/moment.js": "/js/moment.js",
     "/css/all.css": "/css/all.css"
 }

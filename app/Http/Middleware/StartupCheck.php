@@ -3,9 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Redirect;
 use DB;
+use Cache;
 use Artisan;
+use Session;
 
 class StartupCheck
 {
@@ -18,35 +19,61 @@ class StartupCheck
      */
     public function handle($request, Closure $next)
     {
+        if (! $request->is('setup') && ! $request->is('update*') ){
+
+            if (! $this->envExists() || $this->needsDbSetup()){
+
+                return redirect('/setup');
+            }
+
+            if ($this->checkNeedsUpdate()){
+
+                return redirect('/update');
+            }
+        }
+
+        return $next($request);
+    }
+
+    protected function envExists()
+    {
         $envFile = base_path().'/.env';
-        // fresh install: .env does not exists. We create at runtime.
-        if (! file_exists($envFile)) {
+        if (!file_exists($envFile)) {
             if (! copy($envFile . '.example', $envFile)) {
                 dd( "Error trying to write $envFile..." );
             }
             Artisan::call('key:generate');
-            Artisan::call('config:clear');
-            return Redirect::to('/');
+            return false;
         }
+        return true;
 
+    }
+
+    protected function needsDbSetup()
+    {
         try {
             DB::connection()->getPdo();
         } catch (\Exception $e) {
-            die("Could not connect to the database.  Please check your configuration.");
+            return  true;
         }
+        return false;
+    }
 
+    protected function checkNeedsUpdate()
+    {
         $file = storage_path() . '/version.txt';
         $version = @file_get_contents($file);
         if ($version != APP_VERSION) {
             if (version_compare(phpversion(), '7.0.0', '<')) {
                 dd('Please update PHP to >= 7.0.0');
             }
-            $handle = fopen($file, 'w');
+            $handle = fopen(storage_path() . '/version.txt', 'w');
             fwrite($handle, APP_VERSION);
             fclose($handle);
-            return Redirect::to('/update');
+
+            return true;
         }
-        //dd($version);
-        return $next($request);
     }
+
+
 }

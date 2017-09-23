@@ -1,6 +1,9 @@
 @extends('auth.layout')
 
 @section('content')
+    @if(isset($message))
+        <div class="notice notice-info">{!! $message !!}</div>
+    @endif
     <div class="center text-center mt5" style="max-width:300px">
             <img src="{{url("images/handesk_full.png")}}" class="w80">
             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
