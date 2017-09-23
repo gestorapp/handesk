@@ -18,10 +18,14 @@
     <div id="app">
 
 {{--        @include('layouts.header')--}}
-        @include('layouts.tinyHeader')
-        @include('layouts.sidebar')
+        @auth()
+            @include('layouts.tinyHeader')
+            @include('layouts.sidebar')
+        @endauth
         <div class="content container-fluid">
-            @include('components.errors')
+            @auth()
+                @include('components.errors')
+            @endauth
             @yield('content')
         </div>
         {{--@include('layouts.footer')--}}
