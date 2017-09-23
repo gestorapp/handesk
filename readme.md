@@ -10,19 +10,19 @@ Check out the screenshots to see how nice it looks, and feel fee to contribute b
 We will keep adding features as we need them, but our basic workflow is totally covered :D
 
 ## Features
-· Email polling (new tickets and tickets updates)    
+· Email polling (new tickets and tickets updates)
 · Email attachments as ticket attachments (using laravel storage driver)
-· API for creating/updating/fetching tickets/leads so you can display them into your main app    
-· Instant email/slack notifications when tickets are created/updated   
-· Everything is unlimited    
-· Lead management (With its API as well)   
-· Auto lead subscription to mailchimp based on its tags   
-· Tickets reporting   
-· Tickets internal notes   
-· Tickets can be escalated, so assistants can comment on them to help the teams   
-· Can merge tickets       
-· Lead tasks, that can have a due date, and sending daily tasks email   
-· Create issues to your code repository directly from the ticket   
+· API for creating/updating/fetching tickets/leads so you can display them into your main app
+· Instant email/slack notifications when tickets are created/updated
+· Everything is unlimited
+· Lead management (With its API as well)
+· Auto lead subscription to mailchimp based on its tags
+· Tickets reporting
+· Tickets internal notes
+· Tickets can be escalated, so assistants can comment on them to help the teams
+· Can merge tickets
+· Lead tasks, that can have a due date, and sending daily tasks email
+· Create issues to your code repository directly from the ticket
 · UI multi language support (default en, alternativ ca, de, fr, es)
 
 > Follow us on twitter @codepassion to stay tuned
@@ -33,17 +33,18 @@ Its very simple, you just need to follow the standard Laravel installation
 ```shell
 git clone https://github.com/BadChoice/handesk.git
 composer install
-# Setup your .env file to match you desired database
-php artisan key:generate
-php artisan migrate --seed
-php artisan storage:link #if you use the local driver
+php artisan serve
 ```
+
+Navigate to [http:\\localhost:8000](http:\\localhost:8000) to finalize the installation.
+
+The installer will setup `.env` for you and will let you setup database end email enviroment.
 
 Alternatively, you can use the following [docker setup](https://github.com/BadChoice/handesk/blob/dev/docker-installation.md)
 
 
 > The default admin user is admin@handesk.com / admin
-> If you want email pulling, you need to enable the `imap` extension on php (note that on mac the php-cli runs very slow, you need to update your /etc/hosts file 
+> If you want email pulling, you need to enable the `imap` extension on php (note that on mac the php-cli runs very slow, you need to update your /etc/hosts file
 
 ```
 ::1         localhost YourMac.local
@@ -59,10 +60,10 @@ Add the cron job `* * * * * php /path-to-your-project/artisan schedule:run >> /d
 Enter your mail credentials in .env
 
 ````
-MAIL_FETCH_HOST=pop3.handesk.com   
-MAIL_FETCH_PORT=110   
-MAIL_FETCH_USERNAME=hello@handesk.com   
-MAIL_FETCH_PASSWORD=secret-password   
+MAIL_FETCH_HOST=pop3.handesk.com
+MAIL_FETCH_PORT=110
+MAIL_FETCH_USERNAME=hello@handesk.com
+MAIL_FETCH_PASSWORD=secret-password
 ````
 
 #### Mailchimp
@@ -78,17 +79,17 @@ BITBUCKET_USER=bitbucket-user-if-using-basic-auth
 BITBUCKET_PASSWORD=bitbucket-password-if-using-basic-auth
 ```
 
-And enter your repositories list in `config/issues.php` file, filling the `repositories` field. 
+And enter your repositories list in `config/issues.php` file, filling the `repositories` field.
 
 #### Api Token
 Set your desired API token in the .env
 
 ```API_TOKEN=the-api-token```
 
-We have the following SDK's to easily interact with Handesk api   
+We have the following SDK's to easily interact with Handesk api
 There is the `badchoice/handesk-php` package in packagist to easily talk with the api.
-[Handesk-php](https://github.com/BadChoice/handesk-php)   
-[Handesk-ios](https://github.com/BadChoice/handesk-ios) *In progress*  
+[Handesk-php](https://github.com/BadChoice/handesk-php)
+[Handesk-ios](https://github.com/BadChoice/handesk-ios) *In progress*
 
 ### Screenshots
 ![Tickets screenshot](https://raw.githubusercontent.com/BadChoice/handesk/master/resources/screenshots/tickets.png)
@@ -100,8 +101,6 @@ There is the `badchoice/handesk-php` package in packagist to easily talk with th
 
 
 ## Development
-We try to follow a TDD approach as well as some mixed functional CSS for the frontend.   
+We try to follow a TDD approach as well as some mixed functional CSS for the frontend.
 
 **PRs are welcome!**
- 
-
