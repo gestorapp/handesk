@@ -12,9 +12,6 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source --dev
   - php artisan key:generate
 
-before_script:
-
-
 script:
   - vendor/bin/phpunit --exclude-group=integrations
 
