@@ -18,6 +18,6 @@ script:
 notifications:
   email:
     recipients:
-      - hello@handesk.io
+      # hello@handesk.io
     on_success: never
     on_failure: always
